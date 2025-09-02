@@ -23,7 +23,81 @@
         </div>
 
         <!-- El formulario ahora se envía al iframe -->
+        <form id="appointmentForm" class="space-y-6" action="<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telemedicina Piloto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen p-4">
+
+    <div class="w-full max-w-lg p-8 bg-white rounded-xl shadow-lg">
+        <div class="text-center">
+            <h1 class="text-3xl font-bold text-blue-600 mb-2">Proyecto de Telemedicina</h1>
+            <p class="text-gray-500 mb-6">Tu salud al alcance de un clic. Agenda tu consulta virtual de forma rápida y segura.</p>
+        </div>
+
+        <!-- El formulario ahora se envía al iframe -->
         <form id="appointmentForm" class="space-y-6" action="https://script.google.com/macros/s/AKfycbxvTH757IUxMXEQ4iQivCgO2Io0RuLibzbhML50xQk_joHy1fiw3jJcy2LfeCY00FAQ/exec" method="POST" target="hiddenFrame">
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-700">Nombre completo</label>
+                <input type="text" id="name" name="name" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Ej. Juan Pérez" required>
+            </div>
+            <div>
+                <label for="phone" class="block text-sm font-medium text-gray-700">Número de WhatsApp</label>
+                <input type="tel" id="phone" name="phone" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Ej. +505 8888 7777" required>
+            </div>
+            <div>
+                <label for="reason" class="block text-sm font-medium text-gray-700">Motivo de la consulta</label>
+                <textarea id="reason" name="reason" rows="3" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Describe brevemente tus síntomas o el motivo de la consulta..." required></textarea>
+            </div>
+            <div>
+                <label for="preferredDate" class="block text-sm font-medium text-gray-700">Fecha preferida</label>
+                <input type="date" id="preferredDate" name="preferredDate" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+            </div>
+            <div>
+                <label for="preferredTime" class="block text-sm font-medium text-gray-700">Hora preferida</label>
+                <input type="time" id="preferredTime" name="preferredTime" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required>
+            </div>
+
+            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+                Solicitar Consulta
+            </button>
+        </form>
+
+        <!-- Mensaje de confirmación o error -->
+        <div id="messageBox" class="hidden mt-4 p-4 rounded-lg text-center" role="alert"></div>
+
+    </div>
+
+    <!-- Iframe invisible para evitar errores de CORS -->
+    <iframe name="hiddenFrame" style="display:none;"></iframe>
+
+    <script>
+        document.getElementById('appointmentForm').addEventListener('submit', function(event) {
+            // El formulario se enviará al iframe, el JavaScript solo manejará el mensaje de confirmación
+            
+            const messageBox = document.getElementById('messageBox');
+            messageBox.classList.remove('hidden');
+            messageBox.classList.add('bg-green-100', 'text-green-800');
+            messageBox.textContent = "¡Gracias! Tu solicitud ha sido enviada. Revisa tu Hoja de cálculo.";
+            document.getElementById('appointmentForm').reset();
+            
+        });
+    </script>
+</body>
+</html>
+" method="POST" target="hiddenFrame">
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-700">Nombre completo</label>
                 <input type="text" id="name" name="name" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Ej. Juan Pérez" required>
