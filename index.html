@@ -22,7 +22,8 @@
             <p class="text-gray-500 mb-6">Tu salud al alcance de un clic. Agenda tu consulta virtual de forma rápida y segura.</p>
         </div>
 
-        <form id="appointmentForm" class="space-y-6">
+        <!-- El formulario ahora se envía al iframe -->
+        <form id="appointmentForm" class="space-y-6" action="https://script.google.com/macros/s/AKfycbxvTH757IUxMXEQ4iQivCgO2Io0RuLibzbhML50xQk_joHy1fiw3jJcy2LfeCY00FAQ/exec" method="POST" target="hiddenFrame">
             <div>
                 <label for="name" class="block text-sm font-medium text-gray-700">Nombre completo</label>
                 <input type="text" id="name" name="name" class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" placeholder="Ej. Juan Pérez" required>
@@ -54,48 +55,18 @@
 
     </div>
 
+    <!-- Iframe invisible para evitar errores de CORS -->
+    <iframe name="hiddenFrame" style="display:none;"></iframe>
+
     <script>
         document.getElementById('appointmentForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const messageBox = document.getElementById('messageBox');
-            messageBox.classList.add('hidden');
-
-            const formData = {
-                name: document.getElementById('name').value,
-                phone: document.getElementById('phone').value,
-                reason: document.getElementById('reason').value,
-                date: document.getElementById('preferredDate').value,
-                time: document.getElementById('preferredTime').value,
-            };
-
-            // URL del script de Google Apps Script.
-            // https://script.google.com/macros/s/AKfycbx9zVBER8OLIwSRdtIFvdjAwochsGjseNluW7SBJwHTNLV_wRJZq2yESVK2cXmAGI2E/exec
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbx9zVBER8OLIwSRdtIFvdjAwochsGjseNluW7SBJwHTNLV_wRJZq2yESVK2cXmAGI2E/exec';
+            // El formulario se enviará al iframe, el JavaScript solo manejará el mensaje de confirmación
             
-            // Envía los datos usando el método fetch
-            fetch(scriptURL, {
-                method: 'POST',
-                body: JSON.stringify(formData),
-                mode: 'no-cors', // Necesario para evitar errores de CORS
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(() => {
-                // La respuesta no se puede leer en modo 'no-cors', pero asumimos que el envío fue exitoso.
-                console.log('Solicitud enviada. Revisa tu Hoja de cálculo.');
-                messageBox.textContent = "¡Gracias! Tu solicitud ha sido enviada. Te contactaremos pronto a través de WhatsApp para confirmar tu cita.";
-                messageBox.classList.remove('hidden');
-                messageBox.classList.add('bg-green-100', 'text-green-800');
-                document.getElementById('appointmentForm').reset();
-            })
-            .catch(error => {
-                console.error('Error al enviar la solicitud:', error);
-                messageBox.textContent = "Hubo un error al enviar tu solicitud. Por favor, inténtalo de nuevo más tarde.";
-                messageBox.classList.remove('hidden');
-                messageBox.classList.add('bg-red-100', 'text-red-800');
-            });
+            const messageBox = document.getElementById('messageBox');
+            messageBox.classList.remove('hidden');
+            messageBox.classList.add('bg-green-100', 'text-green-800');
+            messageBox.textContent = "¡Gracias! Tu solicitud ha sido enviada. Revisa tu Hoja de cálculo.";
+            document.getElementById('appointmentForm').reset();
             
         });
     </script>
