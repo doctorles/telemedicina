@@ -82,11 +82,13 @@
                     'Content-Type': 'application/json'
                 }
             })
-            .then(response => {
-                console.log('Solicitud enviada:', response);
+            .then(() => {
+                // La respuesta no se puede leer en modo 'no-cors', pero asumimos que el envío fue exitoso.
+                console.log('Solicitud enviada. Revisa tu Hoja de cálculo.');
                 messageBox.textContent = "¡Gracias! Tu solicitud ha sido enviada. Te contactaremos pronto a través de WhatsApp para confirmar tu cita.";
                 messageBox.classList.remove('hidden');
                 messageBox.classList.add('bg-green-100', 'text-green-800');
+                document.getElementById('appointmentForm').reset();
             })
             .catch(error => {
                 console.error('Error al enviar la solicitud:', error);
@@ -95,8 +97,6 @@
                 messageBox.classList.add('bg-red-100', 'text-red-800');
             });
             
-            // Limpia el formulario
-            document.getElementById('appointmentForm').reset();
         });
     </script>
 </body>
