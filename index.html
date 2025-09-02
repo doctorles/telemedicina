@@ -9,19 +9,17 @@
       import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
       import { getAuth, signInWithCustomToken, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
       import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-      import { setLogLevel } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-app-check.js';
-
-      setLogLevel('Debug');
+      
+      const firebaseConfig = {
+        apiKey: "AIzaSyBSo1LF2KRwtTgF8L3Flo7JEfMSuqyVlm8",
+        authDomain: "telemedicina-nicaragua.firebaseapp.com",
+        projectId: "telemedicina-nicaragua",
+        storageBucket: "telemedicina-nicaragua.firebasestorage.app",
+        messagingSenderId: "477409642523",
+        appId: "1:477409642523:web:e1c3d5f8e0eeea5098d0be"
+      };
 
       const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-      const firebaseConfig = {
-    apiKey: "AIzaSyBSo1LF2KRwtTgF8L3Flo7JEfMSuqyVlm8",
-    authDomain: "telemedicina-nicaragua.firebaseapp.com",
-    projectId: "telemedicina-nicaragua",
-    storageBucket: "telemedicina-nicaragua.firebasestorage.app",
-    messagingSenderId: "477409642523",
-    appId: "1:477409642523:web:e1c3d5f8e0eeea5098d0be"
-  };
       const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
       const app = initializeApp(firebaseConfig);
